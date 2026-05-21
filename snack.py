@@ -17,6 +17,8 @@ The available flavors are {self.format_method(self.flavors)}"""
     def format_macros(self):
         return ", ".join([f"{k}: {v}g" for k, v in self.macros.items()])
     def format_method(self, items):
+        if len(items) < 2:
+            return ", ".join(items)
         return f"{', '.join(items[:-1])} and {items[-1]}"
     
 if __name__ == "__main__":

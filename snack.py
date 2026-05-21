@@ -1,29 +1,32 @@
 class Snack:
-    def __init__(self, brand, product, why_better, calories, ingredients, macros):
+    def __init__(self, brand, product_type, why_better, calories, ingredients, macros, flavors):
          self.brand = brand
-         self.product = product
+         self.product_type = product_type
          self.why_better = why_better
          self.calories = calories
          self.ingredients = ingredients
          self.macros = macros
+         self.flavors = flavors
 
     def __str__(self):
-        return f"""This {self.product} from brand {self.brand} is better for you because it is {self.why_better} and has {self.calories} calories per 100 gram 
-The list of ingredients are {self.format_ingredients()}.
-The macros are {self.format_macros()} """
+        return f"""Brand {self.brand}'s {self.product_type} are better for you because it is {self.why_better} and has {self.calories} calories per 100 grams 
+The representative list of ingredients are {self.format_method(self.ingredients)}.
+The representative macros are {self.format_macros()} 
+The available flavors are {self.format_method(self.flavors)}"""
     
     def format_macros(self):
         return ", ".join([f"{k}: {v}g" for k, v in self.macros.items()])
-    def format_ingredients(self):
-        return f"{', '.join(self.ingredients[:-1])} and {self.ingredients[-1]}"
+    def format_method(self, items):
+        return f"{', '.join(items[:-1])} and {items[-1]}"
     
 if __name__ == "__main__":
     test_snack = Snack(
         brand="Siete",
-        product="Tortilla Chips",
+        product_type="Tortilla Chips",
         why_better="grain-free and low sugar",
         calories=140,
         ingredients=["cassava flour", "avocado oil", "sea salt"],
-        macros={"protein": 2, "carbs": 19, "fat": 7, "sugar": 0}
+        macros={"protein": 2, "carbs": 19, "fat": 7, "sugar": 0},
+        flavors=["Sea Salt", "Lime", "Nacho", "Chipotle BBQ"]
     )
     print(test_snack)

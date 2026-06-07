@@ -10,16 +10,19 @@ class Snack:
 
     def __str__(self):
         return f"""Brand {self.brand}'s {self.product_type} are better for you because it is {self.why_better} and has {self.calories} calories per 100 grams 
-The representative list of ingredients are {self.format_method(self.ingredients)}.
+The representative list of ingredient(s) {self.format_method(self.ingredients)}.
 The representative macros are {self.format_macros()} 
-The available flavors are {self.format_method(self.flavors)}"""
+The available flavor(s) {self.format_method(self.flavors)}"""
     
     def format_macros(self):
         return ", ".join([f"{k}: {v}g" for k, v in self.macros.items()])
     def format_method(self, items):
         if len(items) < 2:
-            return ", ".join(items)
-        return f"{', '.join(items[:-1])} and {items[-1]}"
+            return f"is {', '.join(items)}"
+        return f"are {', '.join(items[:-1])} and {items[-1]}"
+    
+    def __repr__(self):
+        return f"Snack({self.brand}, {self.product_type})"
     
 if __name__ == "__main__":
     test_snack = Snack(

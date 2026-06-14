@@ -1,4 +1,5 @@
 from data import data
+from min_heap import MinHeap
 
 def find_category_by_query(categories, query):
     results = []
@@ -45,7 +46,30 @@ def select_category():
                 confirm = True                         
             else:
                 confirm = False                        
-    return results[0]                                  
+    return results[0]
+
+def sort_snacks(snacks, key):
+    heap = MinHeap(key)
+    for snack in snacks:          # loop 1: fill the heap (sift-up each time)
+        heap.add(snack)
+
+    result = []
+    while heap.heap:              # loop 2: empty the heap (sift-down each time)
+        result.append(heap.remove_min())
+    return result
+
+def display_snacks(snacks):
+    print("\nHere are your healthier options, lowest calories first:\n")
+    for number, snack in enumerate(snacks, start=1):
+        print(f"Option {number}:")
+        print(snack)
+        print("-" * 40 + "\n")        
+
+                                      
 if __name__ == "__main__":
-    categories = list(data.keys())
-    print(select_category())
+    from data import data
+    snacks = data["candy"]
+    for s in sort_snacks(snacks, key=lambda s: s.calories):
+        print(s.calories, s.brand)
+    sorted_snacks = sort_snacks(snacks, key=lambda s: s.calories)    
+    display_snacks(snacks)    

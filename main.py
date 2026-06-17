@@ -63,13 +63,17 @@ def display_snacks(snacks):
     for number, snack in enumerate(snacks, start=1):
         print(f"Option {number}:")
         print(snack)
-        print("-" * 40 + "\n")        
+        print("-" * 40 + "\n") 
+
+def main():
+    print("Welcome to the healthier lifestyle...\n I am going to help you find healthier alternatives to your favorite snacks")                       # a welcome message
+    category = select_category()      
+    snacks = data[category]                    
+    sorted_snacks = sort_snacks(snacks, key=lambda s: s.calories)             
+    display_snacks(sorted_snacks)             
+
+if __name__ == "__main__":
+    main()       
 
                                       
-if __name__ == "__main__":
-    from data import data
-    snacks = data["candy"]
-    for s in sort_snacks(snacks, key=lambda s: s.calories):
-        print(s.calories, s.brand)
-    sorted_snacks = sort_snacks(snacks, key=lambda s: s.calories)    
-    display_snacks(snacks)    
+   

@@ -28,24 +28,27 @@ def find_category_by_query(categories, query):
             
     return results
 
+def show_categories(categories):
+    return input(f"Here are the categories: {', '.join(categories)} \nplease start typing: ")
+    
 def select_category():
-    user_input = input("please start typing: ")
+    categories = list(data.keys())
+    user_input = show_categories(categories)
     confirm = False                                    
-    while confirm == False:                            
-        categories = list(data.keys())
+    while not confirm:                            
         results = find_category_by_query(categories, user_input)   
-        print(results)
         if len(results) > 1:
-            user_input = input("continue typing: ")
+            print(f"Several matches: {', '.join(results)}")
+            user_input = input("please continue typing to select a category: ")
         elif len(results) < 1:
-            print(categories)                          
-            user_input = input("no match found, type again: ")
+            print(f"Here are the categories again: {', '.join(categories)}")                     
+            user_input = input("sorry no match found, please type again: ")
         else:
-            confirmation = input(f"is {results} what you want? y/n: ")
+            confirmation = input(f"Do you want a healthier alternative to {results[0]}? y/n: ")
             if confirmation.lower() == "y":                    
                 confirm = True                         
             else:
-                confirm = False                        
+                user_input = show_categories(categories)                      
     return results[0]
 
 def sort_snacks(snacks, key):
@@ -54,7 +57,7 @@ def sort_snacks(snacks, key):
         heap.add(snack)
 
     result = []
-    while heap.heap:              # loop 2: empty the heap (sift-down each time)
+    while not heap.is_empty():              # loop 2: empty the heap (sift-down each time)
         result.append(heap.remove_min())
     return result
 

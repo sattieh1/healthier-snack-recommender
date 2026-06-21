@@ -43,6 +43,7 @@ def find_category_by_query(categories, query):
     return results
 
 def show_categories(categories):
+    """Display categories and prompt the user to start typing a category name."""
     return input(f"Here are the categories: {', '.join(categories)} \nplease start typing: ")
     
 def select_category():
@@ -75,6 +76,7 @@ def select_category():
     return results[0]
 
 def sort_snacks(snacks, key):
+    """Sort snacks using a min heap based on the provided key function."""
     heap = MinHeap(key)
     for snack in snacks:          # loop 1: fill the heap (sift-up each time)
         heap.add(snack)
@@ -85,6 +87,7 @@ def sort_snacks(snacks, key):
     return result
 
 def display_snacks(snacks):
+    """Display snacks numbered, with separator lines between each option."""
     print("\nHere are your healthier options, lowest calories first:\n")
     for number, snack in enumerate(snacks, start=1):
         print(f"Option {number}:")
@@ -92,6 +95,7 @@ def display_snacks(snacks):
         print("-" * 40 + "\n") 
 
 def main():
+    """Main program loop: prompt user to select snack categories and display healthier alternatives."""
     print("Welcome to the healthier lifestyle...\nI am going to help you find healthier alternatives to your favorite snacks")
     searching = True
     while searching:

@@ -1,10 +1,16 @@
 
 class MinHeap:
     def __init__(self, key):
+        """Initialize a min heap with a key function.
+        
+        Args:
+            key: Function that extracts the comparable value from each item.
+        """
         self.heap = []
         self.key = key                  
 
     def add(self, item):
+        """Add an item to the heap and maintain min-heap property via sift-up."""
         self.heap.append(item)         
         i = len(self.heap) - 1          
 
@@ -18,6 +24,7 @@ class MinHeap:
                 break   
 
     def remove_min(self):
+        """Remove and return the minimum item from the heap, maintaining min-heap property via sift-down."""
         if not self.heap:                   # edge case: empty heap
             return None
         min_item = self.heap[0]             # step 1: save the min to return
@@ -45,7 +52,9 @@ class MinHeap:
                     self.heap[i], self.heap[smallest] = self.heap[smallest], self.heap[i]
                     i = smallest
         return min_item
+    
     def is_empty(self):
+        """Return True if the heap is empty, False otherwise."""
         return not self.heap
 
 if __name__ == "__main__":

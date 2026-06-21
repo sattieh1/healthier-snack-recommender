@@ -2,21 +2,35 @@ from data import data
 from min_heap import MinHeap
 
 def find_category_by_query(categories, query):
+    """Return all categories that start with the query (case-insensitive prefix match).
+
+    Compares the query against the beginning of each category one character at a time,
+    so "ch" matches both "chips" and "chocolate". Categories shorter than the query are
+    skipped, since they can't possibly start with it.
+
+    Args:
+        categories: list of category-name strings to search.
+        query: the text the user typed (e.g. "ch").
+
+    Returns:
+        A list of matching category strings in their original casing
+        (empty list if nothing matches).
+    """
     results = []
-    # 1. Lowercase the query once outside the loop
+    
     query_lower = query.lower()
     query_len = len(query_lower)
 
     
     for category in categories:
-        # 2. Lowercase the individual category
+        
         category_lower = category.lower()
         
-        # Skip categories that are shorter than the query
+        
         if len(category_lower) < query_len:
             continue
             
-        # Check character by character
+        
         is_match = True
         for i in range(query_len):
             if category_lower[i] != query_lower[i]:
@@ -32,6 +46,15 @@ def show_categories(categories):
     return input(f"Here are the categories: {', '.join(categories)} \nplease start typing: ")
     
 def select_category():
+    """Prompt the user to pick a category, narrowing matches until one is confirmed.
+
+    Reads input and uses find_category_by_query to filter the categories: if several
+    match, asks for more letters; if none match, re-prompts; if exactly one matches,
+    asks the user to confirm. Loops until a single category is confirmed.
+
+    Returns:
+        The single confirmed category string (in its original casing).
+    """
     categories = list(data.keys())
     user_input = show_categories(categories)
     confirm = False                                    
@@ -69,11 +92,17 @@ def display_snacks(snacks):
         print("-" * 40 + "\n") 
 
 def main():
-    print("Welcome to the healthier lifestyle...\n I am going to help you find healthier alternatives to your favorite snacks")                       # a welcome message
-    category = select_category()      
-    snacks = data[category]                    
-    sorted_snacks = sort_snacks(snacks, key=lambda s: s.calories)             
-    display_snacks(sorted_snacks)             
+    print("Welcome to the healthier lifestyle...\nI am going to help you find healthier alternatives to your favorite snacks")
+    searching = True
+    while searching:
+        category = select_category()
+        snacks = data[category]
+        sorted_snacks = sort_snacks(snacks, key=lambda s: s.calories)
+        display_snacks(sorted_snacks)
+        response = input("Do you want to search for another category? (y/n): ")
+        searching = response.lower() == "y" 
+    
+
 
 if __name__ == "__main__":
     main()       

@@ -1,10 +1,11 @@
+
 class MinHeap:
     def __init__(self, key):
         self.heap = []
         self.key = key                  
 
-    def add(self, snack):
-        self.heap.append(snack)         
+    def add(self, item):
+        self.heap.append(item)         
         i = len(self.heap) - 1          
 
         
@@ -44,6 +45,8 @@ class MinHeap:
                     self.heap[i], self.heap[smallest] = self.heap[smallest], self.heap[i]
                     i = smallest
         return min_item
+    def is_empty(self):
+        return not self.heap
 
 if __name__ == "__main__":
     h = MinHeap(key=lambda x: x)       
